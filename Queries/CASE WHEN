@@ -1,0 +1,16 @@
+/*CASE WHEN
+We collected data about costumer's item quantity per order and we want to offer
+ a 2 % discount to costument if the quantity of items is between 5 and 7 and a 5% discount if the quantity is more then 7.
+ (If the item quantity is less than 5 there will be no discount). Name the new column as "Discount applied".*/
+
+select
+	order_id,
+	item_quantity,
+	case
+		when item_quantity between 5 and 7 then "2% discount"
+		when item_quantity > 7 then "5% discount"
+		else "no discount"
+	end
+	as "Discount applied"
+from
+	order_positions
