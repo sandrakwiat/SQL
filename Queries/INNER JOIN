@@ -1,0 +1,20 @@
+/* The objective of this project is to identify and report the names and IDs of customers whose orders were returned.
+We will utilize SQL to join multiple tables and extract the necessary information.
+The results will be ordered by the customer ID in ascending order.
+This analysis will help in identifying customer return behavior and can be used to enhance customer service, manage inventory, and improve overall business operations.*/
+
+
+
+select
+	o.customer_id,
+	or2.order_id,
+	or2.next_order_free,
+	c.customer_name
+from
+	order_returns or2
+inner join orders o on
+	or2.order_id = o.order_id
+join customers c on
+	c.customer_id = o.customer_id
+order by
+	c.customer_id asc
