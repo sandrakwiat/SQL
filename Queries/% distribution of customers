@@ -1,4 +1,6 @@
-
+/*The purpose of this query is to calculate the percentage distribution of the number of orders placed by customers and present the results as a histogram. 
+This provides insights into how customer activity is distributed in terms of the number of orders they make, allowing us to identify patterns or trends 
+in customer behavior.*/
 
 
 
