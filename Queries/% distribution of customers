@@ -1,0 +1,37 @@
+
+
+
+
+WITH orders_per_customer AS (
+    SELECT
+        customer_id,
+        COUNT(order_id) AS orders
+    FROM
+        orders
+    GROUP BY
+        customer_id
+),
+all_customers AS (
+    SELECT
+        COUNT(DISTINCT customer_id) AS total_customers
+    FROM
+        orders
+),
+customers_histogram AS (
+    SELECT
+        orders,
+        COUNT(customer_id) AS customers
+    FROM
+        orders_per_customer
+    GROUP BY
+        orders
+)
+SELECT
+    ch.orders,
+    ROUND((ch.customers/ ac.total_customers) * 100, 2) AS prc_distribution
+FROM
+    customers_histogram ch
+CROSS JOIN
+    all_customers ac
+ORDER BY
+    ch.orders;
