@@ -42,3 +42,6 @@ FROM (
     GROUP BY order_id 
     HAVING number_of_items > 12
 ) AS num_orders;
+
+
+--  Analyze customer behavior
