@@ -1,0 +1,19 @@
+This query is designed to retrieve information about employees based on specific criteria requested by the company's CEO.
+The CEO asked to identify individuals who are either over 40 years old or earn more than 70,000, as this information is needed for making personnel changes 
+within the teams. The query filters the employee data from two tables: `employee_demographics` for age and `employee_salary` for salary, and then combines the results
+to generate the relevant list of employees.
+
+
+SELECT first_name, last_name, 'Old Man' AS Label
+FROM employee_demographics
+WHERE age > 40 AND gender = 'Male'
+UNION
+SELECT first_name, last_name, 'Old Lady' AS Label
+FROM employee_demographics
+WHERE age > 40 AND gender = 'Female'
+UNION
+SELECT first_name, last_name, 'Highly Paid Employee' AS Label
+FROM employee_salary
+WHERE salary > 70000
+ORDER BY first_name, last_name;
+
