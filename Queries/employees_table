@@ -1,3 +1,23 @@
+
+String functions:
+
+
+-- CONCAT
+SELECT first_name, 
+       last_name, 
+       CONCAT(first_name, ' ', last_name) 
+FROM employee_demographics ed;
+
+-- LOCATE
+SELECT first_name, 
+       LOCATE('An', first_name) 
+FROM employee_demographics;
+
+
+
+
+
+
 This query is designed to retrieve information about employees based on specific criteria requested by the company's CEO.
 The CEO asked to identify individuals who are either over 40 years old or earn more than 70,000, as this information is needed for making personnel changes 
 within the teams. The query filters the employee data from two tables: `employee_demographics` for age and `employee_salary` for salary, and then combines the results
