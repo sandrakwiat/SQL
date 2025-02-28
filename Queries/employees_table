@@ -13,10 +13,27 @@ SELECT first_name,
        LOCATE('An', first_name) 
 FROM employee_demographics;
 
+________________________________________________________________________________________________________________________________________________________
 
+This query retrieves employees' first names, their salaries, and calculates adjustments based on salary thresholds.
+If the salary is below 50,000, a 5% increase is applied, while salaries above 50,000 receive a 7% increase. 
+Additionally, employees in the Finance department receive a bonus equal to 10% of their salary.
+The data is sourced by joining employee_salary with parks_departments based on department IDs.
 
-
-
+SELECT 
+    es.first_name,
+    salary,
+    CASE 
+        WHEN salary < 50000 THEN salary * 1.05
+        WHEN salary > 50000 THEN salary * 1.07
+    END AS new_salary,
+    CASE 
+        WHEN pd.department_name = 'Finance' THEN salary * 0.1
+    END AS bonus
+FROM employee_salary es
+JOIN parks_departments pd 
+    ON es.dept_id = pd.department_id;
+___________________________________________________________________________________________________________________________________________________________________
 
 This query is designed to retrieve information about employees based on specific criteria requested by the company's CEO.
 The CEO asked to identify individuals who are either over 40 years old or earn more than 70,000, as this information is needed for making personnel changes 
