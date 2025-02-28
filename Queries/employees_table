@@ -54,3 +54,32 @@ FROM employee_salary
 WHERE salary > 70000
 ORDER BY first_name, last_name;
 
+____________________________________________________________________________________________________________________________________________________________________
+
+This query retrieves all details from the employee_demographics table for employees who belong to department 1.
+It uses a subquery to first identify the employee_ids from the employee_salary table where the department ID (dept_id) is 1. 
+The main query then selects all corresponding rows from the employee_demographics table based on those employee IDs.
+
+SELECT * 
+FROM employee_demographics 
+WHERE employee_id IN (
+    SELECT employee_id 
+    FROM employee_salary 
+    WHERE dept_id = 1
+);
+
+_______________________________________________________________________________________________________________________________________________________________
+
+
+This query retrieves the first name, last name, and salary for all employees from the `employee_salary` table.
+It also calculates and includes the average salary of all employees by using a subquery to get the average salary across the entire `employee_salary` table,
+which is displayed as `average_salary` for each employee.
+
+
+SELECT 
+    first_name, 
+    last_name, 
+    salary, 
+    (SELECT AVG(salary) FROM employee_salary) AS average_salary 
+FROM employee_salary;
+
