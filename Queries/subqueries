@@ -1,0 +1,84 @@
+_______________________________________________________________________________________________________________________________________________________________
+Exercise 1: Find Employees Older Than the Average Age
+Retrieve the first_name, last_name, and age of employees who are older than the average age of all employees.
+
+SELECT first_name, 
+       last_name, 
+       age 
+FROM employee_demographics 
+WHERE age > (
+    SELECT AVG(age) 
+    FROM employee_demographics
+);
+
+
+________________________________________________________________________________________________________________________________________________________________
+Exercise 2: Find Employees Working in the Highest-Paying Department
+Find the first_name, last_name, and salary of employees working in the department with the highest average salary.
+
+SELECT first_name, 
+       last_name, 
+       salary 
+FROM employee_salary 
+WHERE dept_id = (
+    SELECT dept_id 
+    FROM employee_salary 
+    GROUP BY dept_id 
+    ORDER BY AVG(salary) DESC 
+    LIMIT 1
+);
+
+
+
+_________________________________________________________________________________________________________________________________________________________________
+Exercise 3: Identify Employees in a Specific Department
+Retrieve all columns from employee_demographics for employees who work in the 'Public Relations' department. Use a subquery to find the department's dept_id.
+
+
+SELECT * 
+FROM employee_demographics 
+WHERE employee_id IN (
+    SELECT employee_id 
+    FROM employee_salary 
+    WHERE dept_id = (
+        SELECT dept_id 
+        FROM parks_departments 
+        WHERE department_name = 'Public Relations'
+    )
+);
+
+_________________________________________________________________________________________________________________________________________________________________
+Exercise 4: Find the Highest Paid Employee in Each Department
+For each department, retrieve the first_name, last_name, salary, and department_name of the employee earning the highest salary.
+
+
+SELECT first_name, 
+       last_name, 
+       salary, 
+       department_name 
+FROM employee_salary es 
+JOIN parks_departments pd 
+    ON es.dept_id = pd.dept_id 
+WHERE salary = (
+    SELECT MAX(salary) 
+    FROM employee_salary 
+    WHERE dept_id = es.dept_id
+);
+
+
+___________________________________________________________________________________________________________________________________________________________________
+Exercise 5: Find Employees Born Before the Youngest Employee
+Get the first_name, last_name, and birth_date of employees who were born before the youngest employee in the company.
+
+
+SELECT first_name, 
+       last_name, 
+       birth_date 
+FROM employee_demographics 
+WHERE birth_date < (
+    SELECT MAX(birth_date) 
+    FROM employee_demographics
+);
+
+
+
